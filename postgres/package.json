@@ -1,0 +1,30 @@
+{
+    "name": "postgres",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start:prod": "env-cmd -f ./config/prod.env node dist/index.js",
+        "start:test": "env-cmd -f ./config/prod.test node dist/index.js",
+        "dev": "env-cmd -f ./config/dev.env nodemon src/index.ts",
+        "build": "tsc -p ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@types/pg": "^7.14.4",
+        "env-cmd": "^10.0.1",
+        "nodemon": "^1.19.1",
+        "pg": "^8.3.3",
+        "ts-node": "^8.3.0",
+        "typescript": "^3.6.3",
+        "ulog": "^1.1.0"
+    },
+    "prettier": {
+        "trailingComma": "es5",
+        "tabWidth": 4,
+        "semi": false,
+        "singleQuote": true
+    }
+}
