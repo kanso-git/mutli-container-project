@@ -1,2 +1,31 @@
 # this is for development prupose only
 Dockerfile.dev 
+
+in this branch, i have used nginx to handle the redirections mainly the below :
+
+upstream client {
+    server client:3000;
+}
+
+upstream api {
+    server api:5000;
+}
+
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://client;
+    }
+
+    location /sockjs-node {
+        proxy_pass http://client;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+    }
+
+    location /api {
+        proxy_pass http://api;
+    }
+}
