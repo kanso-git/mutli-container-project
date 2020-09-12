@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=postgres_password
   redis:
     image: 'redis:latest'
-  api:
+  apiserver:
     env_file:
       - ./server/config/dev.env
     environment:
@@ -43,13 +43,13 @@ services:
     volumes:
       - /app/node_modules
       - ./worker:/app
-  nginx:
+  httpd:
     depends_on:
-      - api
+      - apiserver
       - client
     restart: always
     build:
       dockerfile: Dockerfile.dev
-      context: ./nginx
+      context: ./httpd
     ports:
       - '3050:80'

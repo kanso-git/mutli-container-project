@@ -34,7 +34,7 @@ const initPostgresDb = async () => {
     logger.info('End initPostgresDb ')
 }
 initPostgresDb()
-const PORT = process.env.PSS_PORT || 5000
+const PORT = 5000
 app.listen(PORT, () => {
     logger.info('server is up and runing on port ' + PORT)
 })
