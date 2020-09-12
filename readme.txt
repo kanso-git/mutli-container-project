@@ -30,7 +30,9 @@ server {
     }
 }
 
-NB: IIN my client (react-app ) i have prefixed the call to my server with /api
+>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+NB: IN my client (react-app ) i have prefixed the call to my server with /api
 Since in my server i have left the /api as a prefix to call my  exposed services in ServerController.ts
 so i don't need the rewrite the request comming to the server .
 
@@ -46,3 +48,13 @@ location /api {
 rewrite /api/(.*) /$1 break; // rewrite rule to match the text after the /api/ and then store it in $1 
 then send the matched text ($1) e.g /api/values/all -> /values/all
 the word break is telling nginx that once rule is done stop and don't apply any rule 
+
+
+To allow socket call to go thorugh the nginx we have added the below block:
+
+   location /sockjs-node {
+        proxy_pass http://client;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+    }
