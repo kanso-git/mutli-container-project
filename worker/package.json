@@ -6,7 +6,9 @@
     "scripts": {
         "start:prod": "env-cmd -f ./config/prod.env node dist/index.js",
         "start:test": "env-cmd -f ./config/prod.test node dist/index.js",
-        "dev": "env-cmd -f ./config/dev.env nodemon src/index.ts",
+        "start:dev": "env-cmd -f ./config/dev.env nodemon src/index.ts",
+        "dev": "nodemon src/index.ts",
+        "start": "node dist/index.js",
         "build": "tsc -p ."
     },
     "keywords": [],
