@@ -32,6 +32,7 @@ after_sucess:
   # AWS deploy object or block
   # AWS_ACCESS_KEY and  AWS_SECRET_KEY are added as environment variables to this porject on travis CI
 deploy:
+  edge: true
   provider: elasticbeanstalk
   region: 'us-east-2'
   app: 'multi-docker'
