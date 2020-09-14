@@ -33,3 +33,5 @@ sub.on('message', (channel: any, message: any) => {
 })
 
 sub.subscribe('insert')
+
+logger.info(`Worker is up and running ...`)

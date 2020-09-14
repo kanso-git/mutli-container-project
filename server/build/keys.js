@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.pgPort = exports.pgPassword = exports.pgDatabase = exports.pgHost = exports.pgUser = exports.redisPort = exports.redisHost = void 0;
+exports.redisHost = process.env.REDIS_HOST;
+exports.redisPort = process.env.REDIS_PORT;
+exports.pgUser = process.env.PG_USER;
+exports.pgHost = process.env.PG_HOST;
+exports.pgDatabase = process.env.PG_DATABASE;
+exports.pgPassword = process.env.PG_PASSWORD;
+exports.pgPort = process.env.PG_PORT;
