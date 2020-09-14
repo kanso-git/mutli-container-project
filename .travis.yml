@@ -3,12 +3,16 @@ language: generic
 services:
   - docker
 
+# in case we need to test more than projects, all we need to do is to list them
+# NB the custom Dockerfile.dev doesn't remove the necessity to add the build context
 before_install:
   - docker build -t kansodocker/client -f ./client/Dockerfile.dev ./client
 
+# in case we have to run more tests, just we need to list them
 script:
   - docker run -e CI=true  kansodocker/client npm run test
 
+# building images after a success test
 after_sucess:
   - docker build -t kansodocker/multi-client ./client
   - docker build -t kansodocker/multi-nginx ./nginx
@@ -16,6 +20,7 @@ after_sucess:
   - docker build -t kansodocker/multi-worker ./worker
 
   # Log in to the docker CLI
+  # DOCKER_PASSWORD and DOCKER_ID have been added as envirnment variables for this project in travis CI 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
   # Take those images and push them to docker hub
@@ -23,3 +28,17 @@ after_sucess:
   - docker push kansodocker/multi-nginx
   - docker push kansodocker/multi-server
   - docker push kansodocker/multi-worker
+
+  # AWS deploy object or block
+  # AWS_ACCESS_KEY and  AWS_SECRET_KEY are added as environment variables to this porject on travis CI
+  deploy:
+    provider: elasticbeanstalk
+    region: "us-east-2"
+    app: "multi-docker"
+    env: "MultiDocker-env"
+    bucket_name: "elasticbeanstalk-us-east-2-209042061618"
+    bucket_path: "multi-docker"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY

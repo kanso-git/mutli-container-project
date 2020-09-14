@@ -43,13 +43,13 @@ services:
     volumes:
       - /app/node_modules
       - ./worker:/app
-  httpd:
+  nginx:
     depends_on:
       - apiserver
       - client
     restart: always
     build:
       dockerfile: Dockerfile.dev
-      context: ./httpd
+      context: ./nginx
     ports:
       - '3050:80'
