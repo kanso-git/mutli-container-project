@@ -29,7 +29,7 @@ after_sucess:
   - docker push kansodocker/multi-server
   - docker push kansodocker/multi-worker
 
-  # AWS deploy object or block
+  # AWS deploy object or block 
   # AWS_ACCESS_KEY and  AWS_SECRET_KEY are added as environment variables to this porject on travis CI
   deploy:
     provider: elasticbeanstalk
