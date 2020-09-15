@@ -19,9 +19,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./server
-    volumes:
-      - /app/node_modules
-      - ./server:/app
   client:
     environment:
       - CHOKIDAR_USEPOLLING=true
@@ -29,9 +26,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./client
-    volumes:
-      - /app/node_modules
-      - ./client:/app
   worker:
     env_file:
       - ./worker/config/dev.env
@@ -40,9 +34,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./worker
-    volumes:
-      - /app/node_modules
-      - ./worker:/app
   nginx:
     depends_on:
       - apiserver
@@ -52,4 +43,4 @@ services:
       dockerfile: Dockerfile
       context: ./nginx
     ports:
-      - '3050:80'
+      - '3060:80'
