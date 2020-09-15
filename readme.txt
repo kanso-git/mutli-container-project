@@ -83,5 +83,11 @@ How to allow connection trough conatiners and EC and RDS  instaces we have creat
  [multi-docker, postgres and redis]
 
 
+// cmds to run dev and prod in both nginy and httpd
+
+>to run dev  with nginx: docker-compose -f docker-compose.nginx.dev.yml up --build
+>to run prod with nginx: docker-compose -f docker-compose.nginx.prod.yml up --build
 
 
+>to run dev  with httpd: docker-compose -f docker-compose.httpd.dev.yml up --build
+>to run prod with httpd: docker-compose -f docker-compose.httpd.prod.yml up --build

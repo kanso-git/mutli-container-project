@@ -1,0 +1,46 @@
+version: '3'
+services:
+  postgres:
+    restart: always
+    image: 'postgres:latest'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+  redis:
+    image: 'redis:latest'
+  apiserver:
+    env_file:
+      - ./server/config/dev.env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - postgres
+    build:
+      dockerfile: Dockerfile
+      context: ./server
+  client:
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile.httpd
+      context: ./client
+  worker:
+    env_file:
+      - ./worker/config/dev.env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: ./worker
+  httpd:
+    depends_on:
+      - apiserver
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./httpd
+    ports:
+      - '3060:80'
